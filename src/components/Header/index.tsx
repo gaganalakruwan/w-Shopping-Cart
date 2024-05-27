@@ -1,6 +1,6 @@
-import {View, Text, TouchableOpacity, Image} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import Icon from 'react-native-vector-icons/FontAwesome5';
+import Icon from 'react-native-vector-icons/Ionicons';
 import {useSelector} from 'react-redux';
 import {RootState} from 'redux/store/store';
 
@@ -12,15 +12,20 @@ type Props = {
 const Header = ({onPressBack, onPressCart, title}: Props) => {
   const {cartItems} = useSelector((state: RootState) => state.cartData);
   return (
-    <View className="h-14 w-full bg-yellow-600 justify-between flex-row items-center px-4">
+    <View className="h-14 w-full bg-yellow-700 justify-between flex-row items-center px-3">
       {onPressBack ? (
         <TouchableOpacity onPress={onPressBack} style={{}}>
-          <Icon name="chevron-left" size={30} color={'white'} />
+          <Icon name="arrow-back" size={25} color={'white'} />
         </TouchableOpacity>
       ) : (
         <View></View>
       )}
-      <Text style={{color: 'white', fontWeight: '700', fontSize: 16}}>
+      <Text
+        style={{
+          color: 'white',
+          fontWeight: '700',
+          fontSize: 16,
+        }}>
         {title}
       </Text>
       {cartItems.length > 0 ? (
@@ -32,18 +37,18 @@ const Header = ({onPressBack, onPressCart, title}: Props) => {
             alignItems: 'center',
             justifyContent: 'center',
           }}>
-          <Icon name="shopping-cart" size={20} color={'white'} />
+          <Icon name="cart-outline" size={30} color={'white'} />
           <View
             style={{
               position: 'absolute',
               backgroundColor: 'red',
               borderRadius: 100,
-              width: 15,
-              height: 15,
+              width: 20,
+              height: 20,
               alignItems: 'center',
               justifyContent: 'center',
-              right: 1,
-              top: 1,
+              left: 15,
+              bottom: 20,
             }}>
             <Text style={{color: 'white', fontSize: 12}}>
               {cartItems.length}

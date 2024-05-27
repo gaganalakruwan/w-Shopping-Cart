@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {RootState} from '../../redux/store/store';
 import ProductItem from '@components/productItems';
 import ActionButton from '@components/ActionButton';
-import {cartDataType} from 'type';
+import {cartDataType, productDataType} from 'type';
 import {removeCartItem} from '../../redux/features/cartSlice';
 
 const Cart = ({navigation, route}) => {
@@ -28,6 +28,12 @@ const Cart = ({navigation, route}) => {
     ]);
   };
 
+  const renderItem = ({item}: {item: productDataType}) => {
+    return (
+      <ProductItem item={item} onPressDelete={() => removeItemFromCart(item)} />
+    );
+  };
+
   return (
     <MainContainer
       onPressBack={() => navigation.goBack()}
@@ -37,23 +43,16 @@ const Cart = ({navigation, route}) => {
       <View className="py-0 px-2 flex-1">
         <FlatList
           data={cartItems}
+          numColumns={2}
           ListFooterComponent={() => <View style={{height: 100}} />}
-          renderItem={({item}) => (
-            <ProductItem
-              productName={item?.name}
-              price={item.price.amount + '(' + item.price.currency + ')'}
-              color={item.colour}
-              quantity={item?.quantity}
-              onPressDelete={() => removeItemFromCart(item)}
-            />
-          )}
+          renderItem={renderItem}
           keyExtractor={item => item.id}
         />
       </View>
-      <View>
-        <Text>Total: {total}</Text>
-      </View>
-      <ActionButton title="Submit" />
+      <Text style={{fontSize: 20, fontWeight: '500', margin: 20}}>
+        Total: {total}
+      </Text>
+      <ActionButton title="Place Order" />
     </MainContainer>
   );
 };

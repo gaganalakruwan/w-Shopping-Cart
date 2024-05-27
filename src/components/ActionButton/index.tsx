@@ -1,4 +1,4 @@
-import {View, Text, TouchableOpacity} from 'react-native';
+import {Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 type Props = {
@@ -21,7 +21,10 @@ const ActionButton = ({containerStyle, title, onPress, textStyle}: Props) => {
         },
         containerStyle,
       ]}>
-      <Text style={[{color: 'white'}, textStyle]}>{title}</Text>
+      <Text
+        style={[{color: 'white', fontWeight: '500', fontSize: 18}, textStyle]}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 };
