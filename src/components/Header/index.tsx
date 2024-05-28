@@ -20,37 +20,14 @@ const Header = ({onPressBack, onPressCart, title}: Props) => {
       ) : (
         <View></View>
       )}
-      <Text
-        style={{
-          color: 'white',
-          fontWeight: '700',
-          fontSize: 16,
-        }}>
-        {title}
-      </Text>
+      <Text className="text-white font-bold text-base">{title}</Text>
       {cartItems.length > 0 ? (
         <TouchableOpacity
           onPress={onPressCart}
-          style={{
-            height: 40,
-            width: 30,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
+          className="h-10 w-8 items-center justify-center">
           <Icon name="cart-outline" size={30} color={'white'} />
-          <View
-            style={{
-              position: 'absolute',
-              backgroundColor: 'red',
-              borderRadius: 100,
-              width: 20,
-              height: 20,
-              alignItems: 'center',
-              justifyContent: 'center',
-              left: 15,
-              bottom: 20,
-            }}>
-            <Text style={{color: 'white', fontSize: 12}}>
+          <View className=" absolute bg-red-600 rounded-full w-5 h-5 items-center justify-center left-4 bottom-5">
+            <Text className="text-white text-xs font-bold">
               {cartItems.length}
             </Text>
           </View>

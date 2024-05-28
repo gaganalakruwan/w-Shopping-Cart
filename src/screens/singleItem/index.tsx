@@ -5,7 +5,6 @@ import {
   Alert,
   FlatList,
   TouchableOpacity,
-  StyleSheet,
   TextInput,
   ScrollView,
 } from 'react-native';
@@ -18,73 +17,6 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addCartItem, removeCartItem} from '../../redux/features/cartSlice';
 import {RootState} from '../../redux/store/store';
 import ProductItem from '../../components/productItems/index';
-
-const styles = StyleSheet.create({
-  sizeContainer: {
-    width: 40,
-    height: 35,
-    borderWidth: 1,
-    borderColor: '#dbdbdb',
-    borderRadius: 3,
-    margin: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  absoluteContainer: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
-    right: 0,
-  },
-  currencyStyle: {
-    bottom: 10,
-    fontSize: 16,
-    color: 'black',
-    fontWeight: '500',
-  },
-  priceStyle: {
-    color: '#0da825',
-    fontSize: 50,
-    fontWeight: 'bold',
-  },
-  imageStyle: {
-    width: 300,
-    height: 200,
-    alignSelf: 'flex-start',
-  },
-  desc: {
-    marginVertical: 10,
-    textAlign: 'justify',
-    fontWeight: '300',
-    color: '#4f4f4d',
-  },
-  title: {
-    marginTop: 5,
-    fontSize: 18,
-    textAlign: 'left',
-    fontWeight: 'medium',
-    color: '#000000',
-  },
-  sizeText: {
-    fontSize: 16,
-    color: '#dbdbdb',
-  },
-  qtyRow: {
-    marginVertical: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  qty: {
-    height: 40,
-    width: 50,
-    borderColor: '#dbdbdb',
-    borderWidth: 1,
-    borderRadius: 5,
-    textAlign: 'center',
-  },
-});
 
 const SingleItem = ({navigation, route}: {navigation: any; route: any}) => {
   const productData: productDataType = route.params.productData;
@@ -148,65 +80,72 @@ const SingleItem = ({navigation, route}: {navigation: any; route: any}) => {
       isheader={true}
       title={productData.brandName}
       onPressBack={() => navigation.goBack()}>
-      <ScrollView style={{margin: 25}} showsVerticalScrollIndicator={false}>
+      <ScrollView className="m-6" showsVerticalScrollIndicator={false}>
         <FastImage
-          style={styles.imageStyle}
+          className="h-[200px] w-[300px] self-start"
           source={{
             uri: productData.mainImage,
             priority: FastImage.priority.low,
           }}
           resizeMode={FastImage.resizeMode.cover}
         />
-        <View style={styles.absoluteContainer}>
-          <Text style={styles.currencyStyle}>{productData.price.currency}</Text>
-          <Text style={styles.priceStyle}>{productData.price.amount}</Text>
+        <View className="absolute flex-row items-center right-0">
+          <Text className="text-base bottom-3 text-black font-semibold">
+            {productData.price.currency}
+          </Text>
+          <Text className="text-[#0da825] text-[50px] font-bold">
+            {productData.price.amount}
+          </Text>
         </View>
-        <Text style={styles.title}>{productData.name}</Text>
-        <Text style={styles.desc}>{productData.description}</Text>
+        <Text className="mt-1 text-left text-lg font-medium text-black">
+          {productData.name}
+        </Text>
+        <Text className="mt-2 text-justify text-[#4f4f4d] font-light">
+          {productData.description}
+        </Text>
 
-        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-          <Text>Select Preferred Size</Text>
+        <View className="mt-1 flex-row items-center">
+          <Text className="text-black">Select Preferred Size</Text>
           <View style={{flex: 1}} />
           {productData.sizes.map((size, index) => {
             return (
               <TouchableOpacity
                 key={index}
-                style={[
+                className={`w-10 h-[35px] border rounded-sm m-1 items-center justify-center ${
                   size === selectedSize
-                    ? [styles.sizeContainer, {borderColor: 'black'}]
-                    : styles.sizeContainer,
-                ]}
+                    ? ' border-[#000000]'
+                    : ' border-[#dbdbdb]'
+                }`}
                 onPress={() => onPressSize(size)}>
                 <Text
-                  style={[
-                    size === selectedSize
-                      ? [styles.sizeText, {color: 'black'}]
-                      : styles.sizeText,
-                  ]}>
+                  className={`text-base
+                    ${
+                      size === selectedSize ? 'text-black' : 'text-[#dbdbdb]'
+                    }`}>
                   {size}
                 </Text>
               </TouchableOpacity>
             );
           })}
         </View>
-        <View style={styles.qtyRow}>
-          <Text>Select Quantity</Text>
+        <View className="my-3 flex-row items-center justify-between">
+          <Text className="text-black">Select Quantity</Text>
           <TextInput
             onChangeText={text => setQuantity(text)}
             value={quantity}
-            style={styles.qty}
+            className="text-black h-10 w-12 border border-[#dbdbdb] text-center rounded-md"
             keyboardType="numeric"
           />
         </View>
         <ActionButton title="Add To Cart" onPress={() => addItemToCart()} />
-        <Text style={{marginVertical: 10, fontSize: 15, fontWeight: 'bold'}}>
+        <Text className="mx-1 my-3 text-base font-bold text-[#696865]">
           You Might Also Like
         </Text>
         <FlatList
           data={allData}
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-          ListFooterComponent={() => <View style={{height: 100}} />}
+          ListFooterComponent={() => <View className="h-24" />}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />

@@ -40,18 +40,16 @@ const Cart = ({navigation, route}) => {
       isheader={true}
       title="Cart"
       onPressCart={() => navigation.navigate('CART')}>
-      <View className="py-0 px-2 flex-1">
+      <View className="py-2 px-2 flex-1">
         <FlatList
           data={cartItems}
           numColumns={2}
-          ListFooterComponent={() => <View style={{height: 100}} />}
+          ListFooterComponent={() => <View className="h-24" />}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />
       </View>
-      <Text style={{fontSize: 20, fontWeight: '500', margin: 20}}>
-        Total: {total}
-      </Text>
+      <Text className="text-xl font-bold m-5">Total: {total}</Text>
       <ActionButton title="Place Order" />
     </MainContainer>
   );

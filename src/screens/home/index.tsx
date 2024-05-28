@@ -44,7 +44,7 @@ const Home = ({navigation}: {navigation: any}) => {
           data={allProductData}
           numColumns={2}
           showsVerticalScrollIndicator={false}
-          ListFooterComponent={() => <View style={{height: 100}} />}
+          ListFooterComponent={() => <View className="h-24" />}
           renderItem={renderItem}
           keyExtractor={item => item.id}
         />

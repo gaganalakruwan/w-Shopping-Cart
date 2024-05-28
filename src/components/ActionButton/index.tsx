@@ -11,18 +11,9 @@ const ActionButton = ({containerStyle, title, onPress, textStyle}: Props) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[
-        {
-          backgroundColor: 'orange',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: 10,
-          borderRadius: 5,
-        },
-        containerStyle,
-      ]}>
-      <Text
-        style={[{color: 'white', fontWeight: '500', fontSize: 18}, textStyle]}>
+      style={[containerStyle]}
+      className="items-center justify-start p-2 rounded-md bg-[#fc9803]">
+      <Text style={[textStyle]} className={'text-white font-semibold text-lg'}>
         {title}
       </Text>
     </TouchableOpacity>
